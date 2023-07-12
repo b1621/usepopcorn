@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
+import Main from "./components/Main";
 
 function App() {
   return (
     <>
       <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
         <Navbar />
-        <p className=' text-center'>hello world</p>
+        <Main />
       </div>
     </>
   );
