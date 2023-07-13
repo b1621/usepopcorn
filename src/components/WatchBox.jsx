@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import WatchedSummary from "./WatchedSummary";
+import WatchedList from "./WatchedList";
 
 const WatchBox = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -15,7 +16,7 @@ const WatchBox = () => {
       </div>
       <WatchedSummary />
 
-      {isOpen && "list"}
+      {isOpen && <WatchedList />}
     </div>
   );
 };
