@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MovieList from "./MovieList";
 
-const ListBox = () => {
+const ListBox = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className='bg-gray-800 rounded relative h-full'>
@@ -14,7 +14,7 @@ const ListBox = () => {
         </button>
       </div>
 
-      {isOpen && <MovieList />}
+      {isOpen && children}
     </div>
   );
 };
