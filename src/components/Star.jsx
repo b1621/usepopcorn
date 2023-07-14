@@ -1,8 +1,14 @@
 import React from "react";
 
-const Star = ({ onRate, full }) => {
+const Star = ({ onRate, full, onHoverIn, onHoverOut }) => {
   return (
-    <span className='' role='button' onClick={onRate}>
+    <span
+      className=''
+      role='button'
+      onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       {full ? (
         <svg
           id='Layer_1'
