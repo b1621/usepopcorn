@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Star from "./Star";
 
-const StarRating = ({ maxRating = 5 }) => {
+const StarRating = ({
+  maxRating = 5,
+  color = "text-yellow-600",
+  size = 12,
+}) => {
   // {maxRating} =5 , means that while destracturing it gives maxrating a default value if not given first when called
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
