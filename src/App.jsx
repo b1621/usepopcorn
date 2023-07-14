@@ -10,6 +10,7 @@ import WatchBox from "./components/WatchBox";
 import MovieList from "./components/MovieList";
 import WatchedSummary from "./components/WatchedSummary";
 import WatchedList from "./components/WatchedList";
+import StarRating from "./components/StarRating";
 function App() {
   const [movies, setMovies] = useState([
     {
@@ -52,6 +53,8 @@ function App() {
             <WatchedList />
           </Box>
         </Main>
+        <StarRating maxRating={5} />
+        <StarRating maxRating={10} />
       </div>
     </>
   );
