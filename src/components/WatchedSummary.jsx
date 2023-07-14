@@ -2,7 +2,7 @@ import React from "react";
 
 const WatchedSummary = () => {
   return (
-    <div className=' p-5 shadow-2xl shadow-slate-900'>
+    <div className=' px-5 pb-5 shadow-2xl shadow-slate-900'>
       <h2>Movies you watched</h2>
       <div className='grid grid-cols-4 text-sm mt-2'>
         <p className=' '>

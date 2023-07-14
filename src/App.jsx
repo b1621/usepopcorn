@@ -5,10 +5,11 @@ import Main from "./components/Main";
 import SearchBar from "./components/SearchBar";
 import NumResult from "./components/NumResult";
 
-import ListBox from "./components/ListBox";
+import Box from "./components/Box";
 import WatchBox from "./components/WatchBox";
 import MovieList from "./components/MovieList";
-
+import WatchedSummary from "./components/WatchedSummary";
+import WatchedList from "./components/WatchedList";
 function App() {
   const [movies, setMovies] = useState([
     {
@@ -42,10 +43,14 @@ function App() {
         </Navbar>
 
         <Main>
-          <ListBox>
+          <Box>
             <MovieList movies={movies} />
-          </ListBox>
-          <WatchBox />
+          </Box>
+          <Box>
+            <WatchedSummary />
+
+            <WatchedList />
+          </Box>
         </Main>
       </div>
     </>
