@@ -1,9 +1,15 @@
 import React from "react";
 
 const Star = ({ onRate, full, onHoverIn, onHoverOut }) => {
+  const starStyle = {
+    transition: "transform 0.9s ease-in-out",
+    transform: full ? "scale(1.2)" : "scale(1)",
+  };
   return (
     <span
-      className=''
+      //   className={`star ${full ? "scale-125 text-yellow-400" : "text-gray-400"}`}
+      className='star'
+      style={starStyle}
       role='button'
       onClick={onRate}
       onMouseEnter={onHoverIn}
