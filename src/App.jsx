@@ -37,7 +37,7 @@ function App() {
   ]);
   return (
     <>
-      <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
+      <div className="absolute min-h-screen w-screen bg-gray-900 text-white ">
         <Navbar>
           <SearchBar />
           <NumResult movies={movies} />
@@ -53,8 +53,14 @@ function App() {
             <WatchedList />
           </Box>
         </Main>
-        <StarRating maxRating={5} />
-        <StarRating maxRating={10} />
+        <StarRating maxRating={5} defaultRating={3} />
+        <StarRating
+          size="27px"
+          color="blue"
+          maxRating={5}
+          messages={["Terrible", "Bad", "Okay", "Gook", "Amazing"]}
+        />
+        <StarRating size="30px" color="yellow" maxRating={10} />
       </div>
     </>
   );
