@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Star from "./Star";
+import PropTypes from "prop-types";
 
 const StarRating = ({
   maxRating = 5,
   // color = "text-yellow-600",
   color = "#1E2F",
-  size = "25px",
+  size = 25,
   messages = [],
   defaultRating = 0,
   onSetRating,
@@ -43,6 +44,15 @@ const StarRating = ({
       </p>
     </div>
   );
+};
+
+StarRating.propTypes = {
+  maxRating: PropTypes.number,
+  defaultRating: PropTypes.number,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  messages: PropTypes.array,
+  onSetRating: PropTypes.func,
 };
 
 export default StarRating;

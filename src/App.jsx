@@ -55,12 +55,12 @@ function App() {
         </Main>
         <StarRating maxRating={5} defaultRating={3} />
         <StarRating
-          size="27px"
+          size={27}
           color="blue"
           maxRating={5}
           messages={["Terrible", "Bad", "Okay", "Gook", "Amazing"]}
         />
-        <StarRating size="30px" color="yellow" maxRating={10} />
+        <StarRating size={30} color="yellow" maxRating={10} />
       </div>
     </>
   );

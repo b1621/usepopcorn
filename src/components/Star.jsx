@@ -23,8 +23,10 @@ const Star = ({ onRate, full, onHoverIn, onHoverOut, color, size }) => {
           viewBox="0 0 122.88 117.1"
           x="0px"
           y="0px"
-          width={size}
-          height={size}
+          width={`${size}px`}
+          height={`${size}px`}
+          // width={size}
+          // height={size}
           fill={color}
           stroke={color}
         >
@@ -46,8 +48,8 @@ const Star = ({ onRate, full, onHoverIn, onHoverOut, color, size }) => {
           // width="24px"
           // height="24px"
 
-          width={size}
-          height={size}
+          width={`${size}px`}
+          height={`${size}px`}
           viewBox="0 0 122.879 117.188"
           enableBackground="new 0 0 122.879 117.188"
           xmlSpace="preserve"
