@@ -13,9 +13,9 @@ import WatchedList from "./components/WatchedList";
 import StarRating from "./components/StarRating";
 import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage";
+import MovieDetails from "./components/MovieDetails";
 
 const KEY = "44c8fa82";
-const tempQuery = "Extraction";
 
 function App() {
   // const [movies, setMovies] = useState([
@@ -42,14 +42,19 @@ function App() {
   //   },
   // ]);
   const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  // useEffect(() => {
-  //   fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=Mr Robot`)
-  //     .then((res) => res.json())
-  //     .then((data) => setMovies(data.Search));
-  // }, []);
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleSelectMovie = (id) => {
+    setSelectedId((selectedId) => (id === selectedId ? null : id));
+  };
+
+  const handleCloseMovie = () => {
+    setSelectedId(null);
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -104,13 +109,23 @@ function App() {
                 No Movies Found
               </p>
             )}
-            {!isLoading && !error && <MovieList movies={movies} />}
+            {!isLoading && !error && (
+              <MovieList onSelectMovie={handleSelectMovie} movies={movies} />
+            )}
             {error && <ErrorMessage message={error} />}
           </Box>
           <Box>
-            <WatchedSummary />
-
-            <WatchedList />
+            {selectedId ? (
+              <MovieDetails
+                selectedId={selectedId}
+                onCloseMovie={handleCloseMovie}
+              />
+            ) : (
+              <>
+                <WatchedSummary watched={watched} />
+                <WatchedList watched={watched} />
+              </>
+            )}
           </Box>
         </Main>
         {/* <StarRating maxRating={5} defaultRating={3} />

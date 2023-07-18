@@ -1,6 +1,6 @@
 import React from "react";
 
-const WatchedSummary = () => {
+const WatchedSummary = ({ watched }) => {
   return (
     <div className=' px-5 pb-5 shadow-2xl shadow-slate-900'>
       <h2>Movies you watched</h2>
