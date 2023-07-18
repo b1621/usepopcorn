@@ -15,32 +15,34 @@ import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage";
 
 const KEY = "44c8fa82";
-const query = "Extraction";
+const tempQuery = "Extraction";
 
 function App() {
-  const [movies, setMovies] = useState([
-    {
-      imdbID: "1",
-      Poster:
-        "https://th.bing.com/th/id/OIP.sXbUN8pYXiL6sgVkyUi7_QHaLH?pid=ImgDet&rs=1",
-      Title: "Wrath of man",
-      Year: "2022",
-    },
-    {
-      imdbID: "2",
-      Poster:
-        "https://3.bp.blogspot.com/-g8v8P5q5lpw/W53VmvrW6qI/AAAAAAAAHU4/eSKRx9YTXWAUddc0ZwZfDY819fIXdQ_NwCLcBGAs/s1600/p10731391_v_v8_ab.jpg",
-      Title: "Fury",
-      Year: "2015",
-    },
-    {
-      imdbID: "3",
-      Poster:
-        "https://th.bing.com/th/id/OIP.goiIs4v5ABYXysBc2kHKwwHaJ3?pid=ImgDet&w=850&h=1133&rs=1",
-      Title: "Friday",
-      Year: "2004",
-    },
-  ]);
+  // const [movies, setMovies] = useState([
+  //   {
+  //     imdbID: "1",
+  //     Poster:
+  //       "https://th.bing.com/th/id/OIP.sXbUN8pYXiL6sgVkyUi7_QHaLH?pid=ImgDet&rs=1",
+  //     Title: "Wrath of man",
+  //     Year: "2022",
+  //   },
+  //   {
+  //     imdbID: "2",
+  //     Poster:
+  //       "https://3.bp.blogspot.com/-g8v8P5q5lpw/W53VmvrW6qI/AAAAAAAAHU4/eSKRx9YTXWAUddc0ZwZfDY819fIXdQ_NwCLcBGAs/s1600/p10731391_v_v8_ab.jpg",
+  //     Title: "Fury",
+  //     Year: "2015",
+  //   },
+  //   {
+  //     imdbID: "3",
+  //     Poster:
+  //       "https://th.bing.com/th/id/OIP.goiIs4v5ABYXysBc2kHKwwHaJ3?pid=ImgDet&w=850&h=1133&rs=1",
+  //     Title: "Friday",
+  //     Year: "2004",
+  //   },
+  // ]);
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   // useEffect(() => {
@@ -53,8 +55,9 @@ function App() {
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
+        setError("");
         const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${"21afsdfasd"}`
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
         );
         if (!res.ok) {
           throw new Error("Something went wrong with fetching movies");
@@ -64,24 +67,31 @@ function App() {
         if (data.Response === "False") {
           throw new Error(data.Error);
         }
+
         setMovies(data.Search);
       } catch (err) {
-        console.error("error message : ", err.message);
+        // console.error("error message : ", err.message);
         setError(err.message);
       } finally {
         setIsLoading(false);
       }
     };
 
+    if (query.length < 3) {
+      setMovies([]);
+      setError("");
+      return;
+    }
+
     fetchMovies();
-  }, []);
+  }, [query]);
 
   // console.log(movies);
   return (
     <>
       <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
         <Navbar>
-          <SearchBar />
+          <SearchBar query={query} setQuery={setQuery} />
           <NumResult movies={movies} />
         </Navbar>
 
@@ -89,6 +99,11 @@ function App() {
           <Box>
             {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
             {isLoading && <Loader />}
+            {movies.length == 0 && (
+              <p className=' text-center text-xl my-10  text-sky-600'>
+                No Movies Found
+              </p>
+            )}
             {!isLoading && !error && <MovieList movies={movies} />}
             {error && <ErrorMessage message={error} />}
           </Box>
@@ -98,14 +113,14 @@ function App() {
             <WatchedList />
           </Box>
         </Main>
-        <StarRating maxRating={5} defaultRating={3} />
+        {/* <StarRating maxRating={5} defaultRating={3} />
         <StarRating
           size={27}
           color='blue'
           maxRating={5}
           messages={["Terrible", "Bad", "Okay", "Gook", "Amazing"]}
         />
-        <StarRating size={30} color='yellow' maxRating={10} />
+        <StarRating size={30} color='yellow' maxRating={10} /> */}
       </div>
     </>
   );
