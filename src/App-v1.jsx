@@ -12,52 +12,40 @@ import WatchedSummary from "./components/WatchedSummary";
 import WatchedList from "./components/WatchedList";
 import StarRating from "./components/StarRating";
 
+// const KEY = "VERIFYKEY=bb4fa5f5-1a4b-46ac-add0-e33509c03dac";
 const KEY = "44c8fa82";
-const query = "Extraction";
+// fetch(`http://www.omdbapi.com/?apikey=44c8fa82&s=interstellar`)
 
 function App() {
   const [movies, setMovies] = useState([
     {
-      imdbID: "1",
-      Poster:
+      id: "1",
+      poster:
         "https://th.bing.com/th/id/OIP.sXbUN8pYXiL6sgVkyUi7_QHaLH?pid=ImgDet&rs=1",
-      Title: "Wrath of man",
-      Year: "2022",
+      title: "Wrath of man",
+      year: "2022",
     },
     {
-      imdbID: "2",
-      Poster:
+      id: "2",
+      poster:
         "https://3.bp.blogspot.com/-g8v8P5q5lpw/W53VmvrW6qI/AAAAAAAAHU4/eSKRx9YTXWAUddc0ZwZfDY819fIXdQ_NwCLcBGAs/s1600/p10731391_v_v8_ab.jpg",
-      Title: "Fury",
-      Year: "2015",
+      title: "Fury",
+      year: "2015",
     },
     {
-      imdbID: "3",
-      Poster:
+      id: "3",
+      poster:
         "https://th.bing.com/th/id/OIP.goiIs4v5ABYXysBc2kHKwwHaJ3?pid=ImgDet&w=850&h=1133&rs=1",
-      Title: "Friday",
-      Year: "2004",
+      title: "Friday",
+      year: "2004",
     },
   ]);
-  // useEffect(() => {
-  //   fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=Mr Robot`)
-  //     .then((res) => res.json())
-  //     .then((data) => setMovies(data.Search));
-  // }, []);
-
   useEffect(() => {
-    const fetchMovies = async () => {
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-      );
-      const data = await res.json();
-      setMovies(data.Search);
-    };
-
-    fetchMovies();
+    console.log("================================");
+    fetch(`http://www.omdbapi.com/?apikey=44c8fa82&s=interstellar`)
+      .then((res) => res.json())
+      .then((data) => console.log("data", data));
   }, []);
-
-  // console.log(movies);
   return (
     <>
       <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
