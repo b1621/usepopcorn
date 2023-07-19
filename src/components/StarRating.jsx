@@ -22,8 +22,8 @@ const StarRating = ({
     onSetRating(rating);
   }
   return (
-    <div className="border  flex align-middle gap-4">
-      <div className=" flex gap-1">
+    <div className='  flex align-middle gap-4'>
+      <div className=' flex gap-1'>
         {Array.from({ length: maxRating }, (_, i) => (
           //   <span>S{i + 1}</span>
           <Star
