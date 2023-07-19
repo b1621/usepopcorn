@@ -101,7 +101,7 @@ function App() {
   // console.log(watched);
   return (
     <>
-      <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
+      <div className="absolute min-h-screen w-screen bg-gray-900 text-white ">
         <Navbar>
           <SearchBar query={query} setQuery={setQuery} />
           <NumResult movies={movies} />
@@ -111,8 +111,8 @@ function App() {
           <Box>
             {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
             {isLoading && <Loader />}
-            {movies.length == 0 && (
-              <p className=' text-center text-xl my-10  text-sky-600'>
+            {!isLoading && movies.length == 0 && (
+              <p className=" text-center text-xl my-10  text-sky-600">
                 No Movies Found
               </p>
             )}

@@ -12,11 +12,11 @@ const WatchedSummary = ({ watched }) => {
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
   return (
-    <div className=' px-5 pb-5 shadow-2xl shadow-slate-900'>
+    <div className=" px-5 pb-5 shadow-2xl shadow-slate-900">
       <h2>Movies you watched</h2>
-      <div className='grid grid-cols-4 text-sm mt-2'>
-        <p className=' '>
-          <span className=' text-sky-600'>#</span>
+      <div className="grid grid-cols-4 text-sm mt-2">
+        <p className=" ">
+          <span className=" text-sky-600">#</span>
           <span> {watched.length} movies</span>
         </p>
         <p>
@@ -29,7 +29,7 @@ const WatchedSummary = ({ watched }) => {
         </p>
         <p>
           <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span>{avgRuntime.toFixed(2)} min</span>
         </p>
       </div>
     </div>
