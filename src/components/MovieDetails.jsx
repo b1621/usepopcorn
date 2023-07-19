@@ -3,9 +3,15 @@ import { BsArrowLeft } from "react-icons/bs";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
 
-const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched }) => {
+const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [userRating, setUserRating] = useState("");
+
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const watchedUserRating = watched.find(
+    (movie) => movie.imdbID === selectedId
+  )?.userRating;
 
   const {
     Title: title,
@@ -28,8 +34,10 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched }) => {
       poster,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
+      userRating,
     };
-    onAddWatched(newMovie);
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
   };
 
   // console.log(genre, title, year);
@@ -83,13 +91,29 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched }) => {
           </header>
           <section className='  p-10'>
             <div className='px-5 py-4 my-4 mx-auto w-80 bg-slate-700 rounded-md'>
-              <StarRating maxRating={10} size={22} color='yellow' />
-              <button
-                className='bg-indigo-600 hover:bg-indigo-700 mt-5 rounded-xl py-1 w-full'
-                onClick={handleAdd}
-              >
-                + Add to list
-              </button>
+              {isWatched ? (
+                <p>
+                  You have rated this movie with {watchedUserRating}{" "}
+                  <span>🌟</span>{" "}
+                </p>
+              ) : (
+                <>
+                  <StarRating
+                    maxRating={10}
+                    size={22}
+                    color='yellow'
+                    onSetRating={setUserRating}
+                  />
+                  {userRating > 0 && (
+                    <button
+                      className='bg-indigo-600 hover:bg-indigo-700 mt-5 rounded-xl py-1 w-full'
+                      onClick={handleAdd}
+                    >
+                      + Add to list
+                    </button>
+                  )}
+                </>
+              )}
             </div>
             <p>
               <em>{plot} </em>

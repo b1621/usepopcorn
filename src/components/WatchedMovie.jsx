@@ -1,8 +1,8 @@
 import React from "react";
 
-const WatchedMovie = ({ movie }) => {
+const WatchedMovie = ({ movie, onDeleteWatched }) => {
   return (
-    <div className=' flex px-7 py-3 border-b border-slate-700'>
+    <div className=' flex justify-between px-7 py-3 border-b border-slate-700'>
       <img src={movie.poster} alt={movie.title} className=' w-16 h-20' />
       <div className=' mx-5 my-2'>
         <h3>{movie.title}</h3>
@@ -21,6 +21,14 @@ const WatchedMovie = ({ movie }) => {
             <span>{movie.runtime} min</span>
           </p>
         </div>
+      </div>
+      <div className=' '>
+        <button
+          className=' hover:scale-110 transition-all duration-300 py-5'
+          onClick={() => onDeleteWatched(movie.imdbID)}
+        >
+          ❌
+        </button>
       </div>
     </div>
   );

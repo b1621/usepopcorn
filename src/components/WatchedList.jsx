@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import WatchedMovie from "./WatchedMovie";
 
-const WatchedList = ({ watched }) => {
+const WatchedList = ({ watched, onDeleteWatched }) => {
   // const [watched, setWatched] = useState([
   //   {
   //     id: "1",
@@ -24,10 +24,15 @@ const WatchedList = ({ watched }) => {
   //     runtime: "116",
   //   },
   // ]);
+  // console.log(watched);
   return (
     <div className=' '>
       {watched.map((movie) => (
-        <WatchedMovie key={movie.id} movie={movie} />
+        <WatchedMovie
+          key={movie.imdbID}
+          onDeleteWatched={onDeleteWatched}
+          movie={movie}
+        />
       ))}
     </div>
   );

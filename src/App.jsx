@@ -59,6 +59,9 @@ function App() {
   const handleAddWatched = (movie) => {
     setWatched((watched) => [...watched, movie]);
   };
+  const handleDeleteWatched = (id) => {
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+  };
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -95,7 +98,7 @@ function App() {
   }, [query]);
 
   // console.log(movies);
-  console.log(watched);
+  // console.log(watched);
   return (
     <>
       <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
@@ -121,6 +124,7 @@ function App() {
           <Box>
             {selectedId ? (
               <MovieDetails
+                watched={watched}
                 selectedId={selectedId}
                 onCloseMovie={handleCloseMovie}
                 onAddWatched={handleAddWatched}
@@ -128,7 +132,10 @@ function App() {
             ) : (
               <>
                 <WatchedSummary watched={watched} />
-                <WatchedList watched={watched} />
+                <WatchedList
+                  watched={watched}
+                  onDeleteWatched={handleDeleteWatched}
+                />
               </>
             )}
           </Box>
