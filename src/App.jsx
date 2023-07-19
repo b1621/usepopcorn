@@ -56,6 +56,9 @@ function App() {
     setSelectedId(null);
   };
 
+  const handleAddWatched = (movie) => {
+    setWatched((watched) => [...watched, movie]);
+  };
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -92,6 +95,7 @@ function App() {
   }, [query]);
 
   // console.log(movies);
+  console.log(watched);
   return (
     <>
       <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
@@ -119,6 +123,7 @@ function App() {
               <MovieDetails
                 selectedId={selectedId}
                 onCloseMovie={handleCloseMovie}
+                onAddWatched={handleAddWatched}
               />
             ) : (
               <>

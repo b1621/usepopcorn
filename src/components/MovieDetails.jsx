@@ -3,7 +3,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
 
-const MovieDetails = ({ selectedId, onCloseMovie }) => {
+const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched }) => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,6 +19,18 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
     Director: director,
     Genre: genre,
   } = movie;
+
+  const handleAdd = () => {
+    const newWatchedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+    };
+    onAddWatched(newMovie);
+  };
 
   // console.log(genre, title, year);
   useEffect(() => {
@@ -72,6 +84,12 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
           <section className='  p-10'>
             <div className='px-5 py-4 my-4 mx-auto w-80 bg-slate-700 rounded-md'>
               <StarRating maxRating={10} size={22} color='yellow' />
+              <button
+                className='bg-indigo-600 hover:bg-indigo-700 mt-5 rounded-xl py-1 w-full'
+                onClick={handleAdd}
+              >
+                + Add to list
+              </button>
             </div>
             <p>
               <em>{plot} </em>
