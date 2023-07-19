@@ -54,6 +54,14 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     getMovieDetail();
     setIsLoading(false);
   }, [selectedId]);
+
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+    },
+    [title]
+  );
   return (
     <div className='absolute top-0  w-full '>
       {isLoading ? (
