@@ -62,6 +62,7 @@ function App() {
   const handleDeleteWatched = (id) => {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   };
+
   useEffect(() => {
     const controller = new AbortController();
 
