@@ -63,12 +63,15 @@ function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   };
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
         setError("");
         const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: controller.signal }
         );
         if (!res.ok) {
           throw new Error("Something went wrong with fetching movies");
@@ -80,9 +83,12 @@ function App() {
         }
 
         setMovies(data.Search);
+        setError("");
       } catch (err) {
         // console.error("error message : ", err.message);
-        setError(err.message);
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -95,13 +101,16 @@ function App() {
     }
 
     fetchMovies();
+    return function () {
+      controller.abort();
+    };
   }, [query]);
 
   // console.log(movies);
   // console.log(watched);
   return (
     <>
-      <div className="absolute min-h-screen w-screen bg-gray-900 text-white ">
+      <div className='absolute min-h-screen w-screen bg-gray-900 text-white '>
         <Navbar>
           <SearchBar query={query} setQuery={setQuery} />
           <NumResult movies={movies} />
@@ -112,7 +121,7 @@ function App() {
             {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
             {isLoading && <Loader />}
             {!isLoading && movies.length == 0 && (
-              <p className=" text-center text-xl my-10  text-sky-600">
+              <p className=' text-center text-xl my-10  text-sky-600'>
                 No Movies Found
               </p>
             )}
