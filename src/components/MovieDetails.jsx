@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
+import { useKey } from "../customHooks/useKey";
 
 const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   const [movie, setMovie] = useState({});
@@ -53,19 +54,7 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     onCloseMovie();
   };
 
-  useEffect(() => {
-    const callback = (e) => {
-      if (e.code === "Escape") {
-        onCloseMovie();
-        console.log("... Closing ... ");
-      }
-    };
-    document.addEventListener("keydown", callback);
-
-    return () => {
-      document.removeEventListener("keydown", callback);
-    };
-  }, [onCloseMovie]);
+  useKey("Escape", onCloseMovie);
 
   // console.log(genre, title, year);
   useEffect(() => {
