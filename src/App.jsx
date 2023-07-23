@@ -51,7 +51,7 @@ function App() {
   //  usestate can accept callback function
   const [watched, setWatched] = useState(() => {
     const storedValue = localStorage.getItem("watched");
-    console.log(storedValue);
+    // console.log(storedValue);
     return JSON.parse(storedValue);
   });
 
@@ -75,12 +75,15 @@ function App() {
   }, [watched]);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
         setError("");
         const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: controller.signal }
         );
         if (!res.ok) {
           throw new Error("Something went wrong with fetching movies");
@@ -92,9 +95,12 @@ function App() {
         }
 
         setMovies(data.Search);
+        setError("");
       } catch (err) {
         // console.error("error message : ", err.message);
-        setError(err.message);
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -107,6 +113,9 @@ function App() {
     }
 
     fetchMovies();
+    return function () {
+      controller.abort();
+    };
   }, [query]);
 
   // console.log(movies);

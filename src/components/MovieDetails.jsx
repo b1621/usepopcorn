@@ -40,12 +40,26 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     onCloseMovie();
   };
 
+  useEffect(() => {
+    const callback = (e) => {
+      if (e.code === "Escape") {
+        onCloseMovie();
+        console.log("... Closing ... ");
+      }
+    };
+    document.addEventListener("keydown", callback);
+
+    return () => {
+      document.removeEventListener("keydown", callback);
+    };
+  }, [onCloseMovie]);
+
   // console.log(genre, title, year);
   useEffect(() => {
     const getMovieDetail = async () => {
       setIsLoading(true);
       const res = await fetch(
-        `http://www.omdbapi.com/?apikey=44c8fa82&i=${selectedId}`
+        `https://www.omdbapi.com/?apikey=44c8fa82&i=${selectedId}`
       );
       const data = await res.json();
       setMovie(data);
@@ -67,29 +81,29 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     [title]
   );
   return (
-    <div className="absolute top-0  w-full ">
+    <div className='absolute top-0  w-full '>
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          <header className="  ">
+          <header className='  '>
             <button
-              className="absolute z-10 text-xl m-4 hover:scale-125 transition-all duration-300 "
+              className='absolute z-10 text-xl m-4 hover:scale-125 transition-all duration-300 '
               onClick={onCloseMovie}
             >
               <BsArrowLeft />
             </button>
 
-            <div className="relative flex gap-10  bg-slate-700 ">
+            <div className='relative flex gap-10  bg-slate-700 '>
               <div>
                 <img
-                  className=" h-56"
+                  className=' h-56'
                   src={poster}
                   alt={`Poster of ${movie}`}
                 />
               </div>
-              <div className=" my-10 leading-7 text-sm">
-                <h2 className=" text-2xl mb-3">{title}</h2>
+              <div className=' my-10 leading-7 text-sm'>
+                <h2 className=' text-2xl mb-3'>{title}</h2>
                 <p>
                   {released} &bull; {runtime}{" "}
                 </p>
@@ -101,8 +115,8 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
               </div>
             </div>
           </header>
-          <section className="  p-10">
-            <div className="px-5 py-4 my-4 mx-auto w-80 bg-slate-700 rounded-md">
+          <section className='  p-10'>
+            <div className='px-5 py-4 my-4 mx-auto w-80 bg-slate-700 rounded-md'>
               {isWatched ? (
                 <p>
                   You have rated this movie with {watchedUserRating}{" "}
@@ -113,12 +127,12 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
                   <StarRating
                     maxRating={10}
                     size={22}
-                    color="yellow"
+                    color='yellow'
                     onSetRating={setUserRating}
                   />
                   {userRating > 0 && (
                     <button
-                      className="bg-indigo-600 hover:bg-indigo-700 mt-5 rounded-xl py-1 w-full"
+                      className='bg-indigo-600 hover:bg-indigo-700 mt-5 rounded-xl py-1 w-full'
                       onClick={handleAdd}
                     >
                       + Add to list
@@ -130,7 +144,7 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
             <p>
               <em>{plot} </em>
             </p>
-            <p className="py-4">Starring {actors}</p>
+            <p className='py-4'>Starring {actors}</p>
             <p>Directed by {director}</p>
           </section>
         </>
