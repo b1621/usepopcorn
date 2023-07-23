@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 const KEY = "44c8fa82";
 // import setIsLoading from './s'
-export function useMovies(query, callback) {
+export function useMovies(query) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
-    callback?.(); // only execute this function if it exist or sent as a prop
+    // callback?.(); // only execute this function if it exist or sent as a prop
 
     const controller = new AbortController();
 
